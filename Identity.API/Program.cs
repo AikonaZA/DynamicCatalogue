@@ -24,4 +24,6 @@ var app = builder.Build();
 
 AppHost.ConfigurePipeline(app);
 
+app.MapDefaultEndpoints();
+
 app.Run();

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Catalogue.Domain\Catalogue.Domain.csproj" />
+    <ProjectReference Include="..\Catalogue.Infrastructure\Catalogue.Infrastructure.csproj" />
+    <ProjectReference Include="..\DynamicCatalogue.Core\DynamicCatalogue.Core.csproj" />
+  </ItemGroup>
+
+</Project>
