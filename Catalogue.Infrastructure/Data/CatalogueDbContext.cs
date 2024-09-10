@@ -1,8 +1,7 @@
-﻿using Catalogue.Domain.Entities;
+﻿using Catalogue.Infrastructure.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
-namespace Catalogue.Infrastructure
+namespace Catalogue.Infrastructure.Data
 {
     public class CatalogueDbContext : DbContext
     {

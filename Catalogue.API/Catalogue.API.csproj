@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\API.Core\API.Core.csproj" />
     <ProjectReference Include="..\Catalogue.Application\Catalogue.Application.csproj" />
-    <ProjectReference Include="..\Catalogue.Data\Catalogue.Data.csproj" />
     <ProjectReference Include="..\DynamicCatalogue.ServiceDefaults\DynamicCatalogue.ServiceDefaults.csproj" />
   </ItemGroup>
 

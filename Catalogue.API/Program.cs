@@ -2,16 +2,12 @@ using API.Core;
 using Catalogue.Application.Interfaces;
 using Catalogue.Application.Mappings;
 using Catalogue.Application.Services;
-using Catalogue.Infrastructure;
-using Catalogue.Infrastructure.Interfaces;
-using Catalogue.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
+using Catalogue.Infrastructure.Extensions;
 
 var builder = AppHost.CreateBuilder(args, (services, configuration) =>
 {
     // Add API-specific services here
-    services.AddDbContext<CatalogueDbContext>(options =>
-        options.UseSqlServer(configuration.GetConnectionString("CatalogueDb")));
+    services.AddCatalogueInfrastructureLayer(configuration);
 
     // Add any other specific services related to this API
 });
@@ -21,9 +17,6 @@ builder.Services.AddAutoMapper(typeof(CatalogueProfile)); // Register AutoMapper
 
 // Register Application layer services
 builder.Services.AddScoped<IProductService, ProductService>();
-
-// Register Infrastructure layer repositories
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();

@@ -1,4 +1,5 @@
-﻿using Catalogue.Domain.Entities;
+﻿using Catalogue.Infrastructure.Data;
+using Catalogue.Infrastructure.Domain.Entities;
 using Catalogue.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

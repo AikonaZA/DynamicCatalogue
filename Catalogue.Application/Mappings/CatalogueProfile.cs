@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Catalogue.Application.Models.DTOs;
 using Catalogue.Application.Models.Requests;
-using Catalogue.Domain.Entities;
+using Catalogue.Infrastructure.Domain.Entities;
 
 namespace Catalogue.Application.Mappings
 {

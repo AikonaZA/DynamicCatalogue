@@ -2,7 +2,7 @@
 using Catalogue.Application.Interfaces;
 using Catalogue.Application.Models.DTOs;
 using Catalogue.Application.Models.Requests;
-using Catalogue.Domain.Entities;
+using Catalogue.Infrastructure.Domain.Entities;
 using Catalogue.Infrastructure.Interfaces;
 using DynamicCatalogue.Core.Common;
 

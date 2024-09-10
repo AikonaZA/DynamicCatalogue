@@ -1,4 +1,4 @@
-﻿using Catalogue.Domain.Entities;
+﻿using Catalogue.Infrastructure.Domain.Entities;
 
 namespace Catalogue.Infrastructure.Interfaces
 {
