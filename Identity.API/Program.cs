@@ -1,4 +1,5 @@
 using API.Core;
+using DynamicCatalogue.ServiceDefaults;
 using Identity.Data;
 using Identity.Data.Models;
 using Microsoft.AspNetCore.Identity;

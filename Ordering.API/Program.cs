@@ -1,4 +1,5 @@
 using API.Core;
+using DynamicCatalogue.ServiceDefaults;
 using Microsoft.EntityFrameworkCore;
 using Ordering.Data;
 

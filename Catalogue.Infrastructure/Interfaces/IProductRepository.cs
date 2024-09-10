@@ -1,10 +1,10 @@
 ﻿using Catalogue.Infrastructure.Domain.Entities;
 
-namespace Catalogue.Infrastructure.Interfaces
+namespace Catalogue.Infrastructure.Interfaces;
+
+public interface IProductRepository
 {
-    public interface IProductRepository
-    {
-        Task<IEnumerable<Product>> GetAllAsync();
-        Task AddAsync(Product product);
-    }
+    Task<IEnumerable<Product>> GetAllAsync();
+
+    Task AddAsync(Product product);
 }

@@ -6,43 +6,33 @@ using Catalogue.Infrastructure.Domain.Entities;
 using Catalogue.Infrastructure.Interfaces;
 using DynamicCatalogue.Core.Common;
 
-namespace Catalogue.Application.Services
+namespace Catalogue.Application.Services;
+
+public class ProductService(IProductRepository productRepository, IMapper mapper) : IProductService
 {
-    public class ProductService : IProductService
+    public async Task<NewResult<IEnumerable<ProductDto>>> GetAllProductsAsync()
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IMapper _mapper; // Inject AutoMapper
+        var products = await productRepository.GetAllAsync();
+        var productDtos = mapper.Map<IEnumerable<ProductDto>>(products); // Use AutoMapper to map
 
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        return NewResult<IEnumerable<ProductDto>>.Success(productDtos, "Products retrieved successfully.");
+    }
+
+    public async Task<NewResult<ProductDto>> CreateProductAsync(CreateProductRequest request)
+    {
+        var product = mapper.Map<Product>(request); // Map CreateProductRequest to Product entity
+
+        try
         {
-            _productRepository = productRepository;
-            _mapper = mapper;
+            await productRepository.AddAsync(product);
+
+            var productDto = mapper.Map<ProductDto>(product); // Map Product entity to ProductDto
+
+            return NewResult<ProductDto>.Success(productDto, "Product created successfully.");
         }
-
-        public async Task<NewResult<IEnumerable<ProductDto>>> GetAllProductsAsync()
+        catch (Exception ex)
         {
-            var products = await _productRepository.GetAllAsync();
-            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products); // Use AutoMapper to map
-
-            return NewResult<IEnumerable<ProductDto>>.Success(productDtos, "Products retrieved successfully.");
-        }
-
-        public async Task<NewResult<ProductDto>> CreateProductAsync(CreateProductRequest request)
-        {
-            var product = _mapper.Map<Product>(request); // Map CreateProductRequest to Product entity
-
-            try
-            {
-                await _productRepository.AddAsync(product);
-
-                var productDto = _mapper.Map<ProductDto>(product); // Map Product entity to ProductDto
-
-                return NewResult<ProductDto>.Success(productDto, "Product created successfully.");
-            }
-            catch (Exception ex)
-            {
-                return NewResult<ProductDto>.InternalServerError(null, $"Failed to create product: {ex.Message}");
-            }
+            return NewResult<ProductDto>.InternalServerError(null, $"Failed to create product: {ex.Message}");
         }
     }
 }

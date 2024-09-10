@@ -1,4 +1,5 @@
 using API.Core;
+using DynamicCatalogue.ServiceDefaults;
 
 var builder = AppHost.CreateBuilder(args, (services, configuration) =>
 {

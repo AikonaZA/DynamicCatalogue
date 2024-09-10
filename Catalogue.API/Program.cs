@@ -3,6 +3,7 @@ using Catalogue.Application.Interfaces;
 using Catalogue.Application.Mappings;
 using Catalogue.Application.Services;
 using Catalogue.Infrastructure.Extensions;
+using DynamicCatalogue.ServiceDefaults;
 
 var builder = AppHost.CreateBuilder(args, (services, configuration) =>
 {

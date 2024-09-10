@@ -5,22 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Catalogue.Infrastructure.Extensions
+namespace Catalogue.Infrastructure.Extensions;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static IServiceCollection AddCatalogueInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddCatalogueInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
-        {
-            var connectionString = configuration.GetConnectionString("CatalogueDb");
+        var connectionString = configuration.GetConnectionString("CatalogueDb");
 
-            // Register DbContext with SQLite connection string
-            services.AddDbContext<CatalogueDbContext>(options =>
-                options.UseSqlServer(connectionString));
+        // Register DbContext with SQLite connection string
+        services.AddDbContext<CatalogueDbContext>(options =>
+            options.UseSqlServer(connectionString));
 
-            // Register the repository
-            services.AddScoped<IProductRepository, ProductRepository>();
+        // Register the repository
+        services.AddScoped<IProductRepository, ProductRepository>();
 
-            return services;
-        }
+        return services;
     }
 }

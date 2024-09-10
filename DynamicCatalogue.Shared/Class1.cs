@@ -1,7 +1,5 @@
-﻿namespace DynamicCatalogue.Shared
-{
-    public static class Class1
-    {
+﻿namespace DynamicCatalogue.Shared;
 
-    }
+public static class Class1
+{
 }

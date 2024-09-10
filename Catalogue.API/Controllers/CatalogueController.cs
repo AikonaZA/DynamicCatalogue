@@ -1,48 +1,38 @@
 ﻿using Catalogue.Application.Interfaces;
-using Catalogue.Application.Models;
 using Catalogue.Application.Models.Requests;
-using DynamicCatalogue.Core.Common;
 using DynamicCatalogue.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Catalogue.API.Controllers
+namespace Catalogue.API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class CatalogueController(IProductService productService) : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CatalogueController : ControllerBase
+    [HttpGet("products")]
+    public async Task<IActionResult> GetProducts()
     {
-        private readonly IProductService _productService;
+        var result = await productService.GetAllProductsAsync();
 
-        public CatalogueController(IProductService productService)
+        return result.ResponseCode switch
         {
-            _productService = productService;
-        }
+            HttpResponseCode.Success => Ok(result),
+            HttpResponseCode.NoContent => NoContent(),
+            _ => StatusCode((int)result.ResponseCode, result)
+        };
+    }
 
-        [HttpGet("products")]
-        public async Task<IActionResult> GetProducts()
+    [HttpPost("products")]
+    public async Task<IActionResult> CreateProduct([FromBody] CreateProductRequest request)
+    {
+        var result = await productService.CreateProductAsync(request);
+
+        return result.ResponseCode switch
         {
-            var result = await _productService.GetAllProductsAsync();
-
-            return result.ResponseCode switch
-            {
-                HttpResponseCode.Success => Ok(result),
-                HttpResponseCode.NoContent => NoContent(),
-                _ => StatusCode((int)result.ResponseCode, result)
-            };
-        }
-
-        [HttpPost("products")]
-        public async Task<IActionResult> CreateProduct([FromBody] CreateProductRequest request)
-        {
-            var result = await _productService.CreateProductAsync(request);
-
-            return result.ResponseCode switch
-            {
-                HttpResponseCode.Success => CreatedAtAction(nameof(GetProducts), new { id = result.ResponseDetails.Id }, result),
-                HttpResponseCode.BadRequest => BadRequest(result),
-                HttpResponseCode.InternalServerError => StatusCode(500, result),
-                _ => StatusCode((int)result.ResponseCode, result)
-            };
-        }
+            HttpResponseCode.Success => CreatedAtAction(nameof(GetProducts), new { id = result.ResponseDetails.Id }, result),
+            HttpResponseCode.BadRequest => BadRequest(result),
+            HttpResponseCode.InternalServerError => StatusCode(500, result),
+            _ => StatusCode((int)result.ResponseCode, result)
+        };
     }
 }

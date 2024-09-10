@@ -3,26 +3,18 @@ using Catalogue.Infrastructure.Domain.Entities;
 using Catalogue.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Catalogue.Infrastructure.Repositories
+namespace Catalogue.Infrastructure.Repositories;
+
+public class ProductRepository(CatalogueDbContext context) : IProductRepository
 {
-    public class ProductRepository : IProductRepository
+    public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        private readonly CatalogueDbContext _context;
+        return await context.Products.Include(p => p.Category).ToListAsync();
+    }
 
-        public ProductRepository(CatalogueDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<IEnumerable<Product>> GetAllAsync()
-        {
-            return await _context.Products.Include(p => p.Category).ToListAsync();
-        }
-
-        public async Task AddAsync(Product product)
-        {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-        }
+    public async Task AddAsync(Product product)
+    {
+        context.Products.Add(product);
+        await context.SaveChangesAsync();
     }
 }

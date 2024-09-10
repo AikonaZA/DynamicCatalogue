@@ -1,3 +1,4 @@
+using DynamicCatalogue.ServiceDefaults;
 using DynamicCatalogue.Web;
 using DynamicCatalogue.Web.Components;
 
